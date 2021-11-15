@@ -59,9 +59,127 @@ public class Date {
 		
 		return numDays;
 	}
-	
+
+	//METODOS GET
+
+	public int getDay(){
+		return this.day;
+	}
+	public int getMonth(){
+		return this.month;
+	}
+	public int getYear(){
+		return this.year;
+	}
+
+
+	//METODOS IS SAME
+	public boolean isSameYear(Date date){
+		return this.getYear() == date.getYear();
+	}
+
+	public boolean isSameMonth(Date date){
+		return this.getMonth() == date.getMonth();
+	}
+
+	public boolean isSameDay(Date date){
+		return this.getDay() == date.getDay();
+	}
+
+	public boolean isSameNoIf(Date date){
+		return isSameDay(date)&& isSameMonth(date) && isSameYear(date);
+	}
+
+	//METODO GETMONTHNAME
+
+	public String getMonthName(){
+		StringBuilder salida =  new StringBuilder();
+		switch (this.month) {
+			
+			case 1: 
+				salida.append("January") ;
+				break;
+			case 2: 
+				salida.append("February") ;
+				break;
+			case 3: 
+				salida.append("March") ;
+				break;
+			case 4: 
+				salida.append("April");
+				break;
+			case 5: 
+				salida.append("May") ;
+				break;
+			case 6: 
+				salida.append("June") ;
+				break;
+			case 7: 
+				salida.append("July") ;
+				break;
+			case 8: 
+				salida.append("August") ;
+				break;
+			case 9: 
+				salida.append("September") ;
+				break;
+			case 10: 
+				salida.append("October") ;
+				break;
+			case 11: 
+				salida.append("November") ;
+				break;
+			case 12: 
+				salida.append("December") ;
+				break;		
+		}
+		return salida.toString();
+	}
+	public boolean checkMonth(){
+		boolean checkMonth;
+		if (month > 0 && month < 13) {
+			if (month == 2 && day > 28) {
+				checkMonth = false;
+			}
+			checkMonth = true;
+		}else {
+			checkMonth = false;
+		}
+		return checkMonth;
+	}
+
+	public String getSeasonName(){
+
+		StringBuilder salida = new StringBuilder();
+		switch (this.month) {
+			case 3:
+			case 4:
+			case 5:
+				salida.append("Spring");
+				break;
+			case 6:
+			case 7:
+			case 8:
+				salida.append("Summer");
+				break;
+			case 9:
+			case 10:
+			case 11:
+				salida.append("Autumn");
+				break;
+			case 12:
+			case 1:
+			case 2:
+				salida.append("Winter");
+				break;
+			}
+			return salida.toString();
+		}
+
 	public String toString() {
 		return this.day + "/" + this.month + "/" + this.year;
 	}
+
+	
 
 }
