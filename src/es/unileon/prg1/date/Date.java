@@ -175,6 +175,30 @@ public class Date {
 			}
 			return salida.toString();
 		}
+	
+	public String getMonthsLeft(){
+
+		StringBuilder salida = new StringBuilder();
+		int aux = this.month;
+			if (this.month == 12) {
+				salida.append("0 meses restantes");
+			}
+	
+			for (int i = this.month+1 ; i <= 12 ; i++) {
+				this.month+=1;
+				 salida.append(getMonthName());
+				 salida.append(" ");
+				 
+			}
+		this.month= aux;
+		return salida.toString();
+		}
+
+	public String stringVersionDate(){
+
+		return this.day + " de " + this.getMonthName() + " de " + this.year;
+	
+		}
 
 	public String toString() {
 		return this.day + "/" + this.month + "/" + this.year;
