@@ -5,15 +5,16 @@ public class Date {
 	private int month;
 	private int year;
 	
+	//CONSTRUCTOR DE LA CLASE
+
 	public Date (int day, int month, int year) throws DateException {
-		//this.month = month;
 		this.setMonth(month);
-		//this.day = day;
 		this.setDay(day);
-		//this.year = year;
 		this.setYear(year);
 	}
 	
+	//METODOS SET
+
 	public void setDay(int day) throws DateException {
 		if ( day < 1 || day > this.getDaysOfMonth() ) {
 			throw new DateException("Date error: Day " + day + " of month " + this.month + " not valid");			
@@ -32,17 +33,19 @@ public class Date {
 		this.year = year;
 	}
 	
-	private int getDaysOfMonth() {
+	//METODO DIAS DE CADA MES
+
+	public int getDaysOfMonth() {
 		int numDays;
 		
 		numDays = 0;
 		switch (this.month) {
-		case 1: //next
-		case 3: //next
-		case 5: //next
-		case 7: //next
-		case 8: //next
-		case 10: //next
+		case 1: 
+		case 3: 
+		case 5: 
+		case 7: 
+		case 8: 
+		case 10: 
 		case 12:
 			numDays = 31;
 			break;
@@ -74,6 +77,7 @@ public class Date {
 
 
 	//METODOS IS SAME
+
 	public boolean isSameYear(Date date){
 		return this.getYear() == date.getYear();
 	}
@@ -90,7 +94,7 @@ public class Date {
 		return isSameDay(date)&& isSameMonth(date) && isSameYear(date);
 	}
 
-	//METODO GETMONTHNAME
+	//METODO NOMBRE DE CADA MES
 
 	public String getMonthName(){
 		StringBuilder salida =  new StringBuilder();
@@ -135,6 +139,9 @@ public class Date {
 		}
 		return salida.toString();
 	}
+
+	//METODO CHECK DEL MES
+
 	public boolean checkMonth(){
 		boolean checkMonth;
 		if (month > 0 && month < 13) {
@@ -147,6 +154,8 @@ public class Date {
 		}
 		return checkMonth;
 	}
+
+	//METODO NOMBRE DE LA ESTACION
 
 	public String getSeasonName(){
 
@@ -176,12 +185,14 @@ public class Date {
 			return salida.toString();
 		}
 	
+	//METODO MESES RESTANTES
+		
 	public String getMonthsLeft(){
 
 		StringBuilder salida = new StringBuilder();
 		int aux = this.month;
 			if (this.month == 12) {
-				salida.append("0 meses restantes");
+				salida.append("0 meses restantes.");
 			}
 	
 			for (int i = this.month+1 ; i <= 12 ; i++) {
@@ -194,12 +205,171 @@ public class Date {
 		return salida.toString();
 		}
 
+	//METODO DE LA VERSION STRING DE DATE
+
 	public String stringVersionDate(){
 
 		return this.day + " de " + this.getMonthName() + " de " + this.year;
 	
 		}
+	
+	//METODO FECHAS RESTANTES DEL MES
 
+	public String getDatesLeftOfMonth(){
+		StringBuilder salida = new StringBuilder();
+
+		switch (this.month) {
+			case 1:
+			case 3:
+			case 5:
+			case 7:
+			case 8:
+			case 10:
+			case 12:
+				for (int i=this.day+1; i<=31 ; ++i ) {
+					
+					salida.append(i + "/"+ this.month+"/"+this.year);
+					
+					salida.append(" ");
+				}
+				break;
+			case 2:
+				for (int i=this.day+1; i<=28 ; ++i ) {
+					
+					salida.append(i + "/"+ this.month+"/"+this.year);
+					salida.append(" ");
+				}
+				break;
+			case 4:
+			case 6:
+			case 9:
+			case 11:
+				for (int i=this.day+1; i<=30 ; ++i ) {
+					
+					salida.append(i + "/"+ this.month+"/"+this.year);
+					salida.append(" ");
+				}
+				break;
+		}
+		return salida.toString();
+	}
+
+	//METODO MESES CON EL MISMO NUMERO
+
+	public String getSameNumberMonth() {
+		StringBuilder salida = new StringBuilder();
+		switch (this.month) {
+		case 1: 
+		case 3: 
+		case 5: 
+		case 7: 
+		case 8: 
+		case 10: 
+		case 12:
+			salida.append("Enero Marzo Mayo Julio Agosto Octubre Diciembre");
+			break;
+		case 4:
+		case 6:
+		case 9:
+		case 11:
+			salida.append("Abril Junio Septiembre Noviembre");
+			break;
+		case 2:
+			salida.append("Febrero");
+			break;			
+		}
+		
+		return salida.toString();
+	}
+
+	//METODO DIAS DESDE EL PRINCIPIO DE AÑO
+
+	public int daysSinceFirstDay(){
+		int daysFromBegining=0;
+		for (int i = 1;i<this.month ; i++) {
+		 	switch (i) {
+		 		case 1:
+				case 3:
+				case 5:
+				case 7:
+				case 8:
+				case 10:
+					daysFromBegining += 31;
+					break;
+				case 2:
+					daysFromBegining += 28;
+					break;
+				case 4:
+				case 6:
+				case 9:
+				case 11:	
+					daysFromBegining += 30;
+					break;
+		 	}
+		} 
+		daysFromBegining += this.day-1;
+
+		return daysFromBegining;
+	}
+
+	//METODOS INTENTOS FECHA WHILE Y DO-WHILE
+
+	public int numRandomTriesEqualDateWhile(){	
+		int randomDay=365;
+		int attempts =0;
+		
+		while(this.daysSinceFirstDay() != randomDay) {
+			randomDay = (int)(Math.random()*((364-0)+1))+0;
+			attempts++;
+		}
+		return attempts;
+	}
+
+	public int numRandomTriesEqualDateDoWhile(){	
+		int randomDay=365;
+		int attempts =0;
+		
+		do  {
+			randomDay = (int)(Math.random()*((364-0)+1))+0;
+			attempts++;
+		}
+		while(this.daysSinceFirstDay() != randomDay);
+		return attempts;
+	}
+
+	public String dayOfWeek(int firstDayOfYear){
+
+		StringBuilder salida = new StringBuilder();
+		
+		int dayOfWeek = (this.daysSinceFirstDay()%7)+firstDayOfYear;
+			switch (dayOfWeek) {
+				case 7:
+					salida.append("Sunday");
+					break;
+				case 1:
+					salida.append("Monday");
+					break;
+				case 2:
+					salida.append("Tuesday");
+					break;
+				case 3:	
+					salida.append("Wednesday");
+					break;
+				case 4:
+					salida.append("Thursday");
+					break;
+				case 5:
+					salida.append("Friday");
+					break;
+				case 6:
+					salida.append("Saturday");
+					break;
+			}
+		return salida.toString();
+	}
+
+	//METODO TOSTRING
+	
 	public String toString() {
 		return this.day + "/" + this.month + "/" + this.year;
 	}
